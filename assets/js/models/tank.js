@@ -28,6 +28,13 @@ class Tank {
            this.height = this.sprite.frameHeight;
          };
 
+         this.movements ={
+            up: false,
+            right: false,
+            down: false,
+            left: false 
+         }
+
     }
     
     isReady() {
@@ -51,6 +58,29 @@ class Tank {
        }
 
     }
+
+
+    onKeyEvent(event){
+        const status = event.type === "keydown"
+        switch (event.key){
+            case KEY_UP:
+            this.movements.up = status
+            break;
+            case KEY_RIGHT:
+            this.movements.right = status
+            break;
+            case KEY_DOWN:
+            this.movements.down = status
+            break;
+            case KEY_LEFT:
+            this.movements.left = status
+            break;
+            default:
+            break;
+        }
+    }
+
+
 
 
 
