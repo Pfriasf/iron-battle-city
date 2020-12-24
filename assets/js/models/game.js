@@ -1,5 +1,5 @@
 class Game {
-    constructor (canvasId){
+    constructor(canvasId) {
         this.canvas = document.getElementById(canvasId)
         this.ctx = this.canvas.getContext("2d")
 
@@ -11,16 +11,37 @@ class Game {
 
         this.background = new Background(this.ctx)
 
-        this.tank = new Tank(this.ctx,100,100)
+        this.tank = new Tank(this.ctx, 100, 100)
     }
 
     start() {
-        this.draw()
+        if (!this.drawInterval) {
+            this.drawInterval = setInterval(() => {
+                this.clear()
+                this.move()
+                this.draw()
+
+            }, this.fps)
+
+        }
     }
 
-    draw () {
+
+    draw() {
         this.background.draw()
         this.tank.draw()
+    }
+
+    clear() {
+        this.ctx.clearRect(0, 0, this.canvas.width, this.canvas.height);
+    }
+
+    move() {
+        this.tank.move();
+    }
+
+    onKeyEvent(event) {
+        this.tank.onKeyEvent(event)
     }
 
 

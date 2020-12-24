@@ -34,7 +34,6 @@ class Tank {
             down: false,
             left: false 
          }
-
     }
     
     isReady() {
@@ -43,7 +42,6 @@ class Tank {
 
     draw(){
         if(this.isReady()){
-            console.log(this.sprite.verticalFrameIndex);
            this.ctx.drawImage(
                this.sprite,
                this.sprite.horizontalFrameIndex * this.sprite.frameWidth,
@@ -56,7 +54,6 @@ class Tank {
                this.height
            )
        }
-
     }
 
 
@@ -80,9 +77,15 @@ class Tank {
         }
     }
 
-
-
-
-
-
+    move(){
+        if(this.movements.up){
+            this.y -= SPEED
+        } else if (this.movements.down){
+            this.y += SPEED
+        }else if (this.movements.right){
+            this.x += SPEED
+        } else if (this.movements.left){
+            this.x -= SPEED
+        }
+    }
 }
