@@ -20,7 +20,6 @@ class Game {
                 this.clear()
                 this.move()
                 this.draw()
-
             }, this.fps)
 
         }
@@ -43,7 +42,4 @@ class Game {
     onKeyEvent(event) {
         this.tank.onKeyEvent(event)
     }
-
-
-
 }
