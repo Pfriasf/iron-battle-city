@@ -32,9 +32,6 @@ class Tank {
         this.maxX = this.ctx.canvas.width - this.sprite.width / 4;
         this.minY = 0;
         this.maxY = this.ctx.canvas.height - this.sprite.height / 2;
-        
-console.log(this.maxX);
-
 
     this.movements = {
       up: false,

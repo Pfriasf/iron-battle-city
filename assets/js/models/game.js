@@ -11,7 +11,8 @@ class Game {
 
         this.background = new Background(this.ctx)
 
-        this.tank = new Tank(this.ctx, 100, 100)
+        this.tank = new Tank(this.ctx, 100, 100)       
+        this.stage = new Stage(this.ctx)
     }
 
     start() {
@@ -21,7 +22,6 @@ class Game {
                 this.move()
                 this.draw()
             }, this.fps)
-
         }
     }
 
@@ -29,6 +29,7 @@ class Game {
     draw() {
         this.background.draw()
         this.tank.draw()
+        this.stage.draw()
     }
 
     clear() {
