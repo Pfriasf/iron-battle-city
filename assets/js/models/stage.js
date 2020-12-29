@@ -2,7 +2,7 @@ class Stage {
     constructor(ctx) {
       this.ctx = ctx;
 
-      levels.stage_16.forEach((row,rowIndex) => {          
+      levels.stage_14.forEach((row,rowIndex) => {          
           row.forEach((element, elementIndex) => {
               switch (element) {
                 case 0:
