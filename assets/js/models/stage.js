@@ -2,7 +2,7 @@ class Stage {
     constructor(ctx) {
       this.ctx = ctx;
 
-      levels.stage_01.forEach((row,rowIndex) => {          
+      levels.stage_02.forEach((row,rowIndex) => {          
           row.forEach((element, elementIndex) => {
               switch (element) {
                 case 0:
@@ -15,7 +15,7 @@ class Stage {
                   levelBlocks.waterBlocks.push(new Block(this.ctx, elementIndex * 32, rowIndex * 32, "./assets/img/water.png")) 
                   break;
                 case 3:
-                  levelBlocks.treeBlocks.push(new Block(this.ctx, elementIndex * 32, rowIndex * 32, "./assets/img/tree.png"))  
+                  levelBlocks.treeBLocks.push(new Block(this.ctx, elementIndex * 32, rowIndex * 32, "./assets/img/tree.png"))  
                   break;
                 case 4:
                   levelBlocks.iceBlocks.push(new Block(this.ctx, elementIndex * 32, rowIndex * 32, "./assets/img/ice.png"))  
