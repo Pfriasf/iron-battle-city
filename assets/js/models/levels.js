@@ -13,8 +13,8 @@ Reference:
 levelBlocks = {
     brickBlocks:[],
     steelBlocks:[],
-    waterBLocks:[],
-    treeBLocks:[],
+    waterBlocks:[],
+    treeBlocks:[],
     iceBlocks:[]
 }
 
