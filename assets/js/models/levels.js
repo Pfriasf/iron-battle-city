@@ -8,8 +8,15 @@ Reference:
 2: water
 3: tree
 4: ice
-5: blank
+5: ground
 */
+levelBlocks = {
+    brickBlocks:[],
+    steelBlocks:[],
+    waterBLocks:[],
+    treeBLocks:[],
+    iceBlocks:[]
+}
 
 levels = {
     stage_01 : [

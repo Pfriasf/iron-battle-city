@@ -1,5 +1,5 @@
-class Brick {
-  constructor(ctx, x, y) {
+class Block {
+  constructor(ctx, x, y,src) {
     this.ctx = ctx;
     this.x = x;
     this.y = y;
@@ -7,7 +7,7 @@ class Brick {
     this.height = 0;
 
     this.sprite = new Image();
-    this.sprite.src = "./assets/img/brick.png";
+    this.sprite.src = src;
 
     this.sprite.isReady = false;
     this.sprite.horizontalFrames = 1;
