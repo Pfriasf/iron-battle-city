@@ -39,6 +39,16 @@ class Tank {
       down: false,
       left: false,
     };
+
+     this.faceTo = {
+       north: true,
+       east: false,
+       south: false,
+       west: false,
+     };
+    
+    this.canFire = true;
+    this.bullets = [];
   }
 
   isReady() {
@@ -58,11 +68,15 @@ class Tank {
         this.width,
         this.height
       );
+
+      this.bullets.forEach((bullet) => bullet.draw());
     }
+    console.log(this.bullets)
   }
 
   onKeyEvent(event) {
     const status = event.type === "keydown";
+    console.log(event.key)
     switch (event.key) {
       case KEY_UP:
         this.movements.up = status;
@@ -75,6 +89,27 @@ class Tank {
         break;
       case KEY_LEFT:
         this.movements.left = status;
+        break;
+      case KEY_FIRE:
+           
+        if (this.canFire) {
+          console.log("pum")
+          if(this.faceTo.north){
+            this.bullets.push(new Block(this.ctx, this.x + this.width / 2 - 6, this.y - 16, "./assets/img/bullet_north.png"));
+          } else if(this.faceTo.east === true){
+            this.bullets.push(new Block(this.ctx, this.x + this.width, this.y + this.height / 2 - 6, "./assets/img/bullet_east.png"));
+          } else if(this.faceTo.south === true){
+            this.bullets.push(new Block(this.ctx, this.x + this.width / 2 - 6, this.y + this.height, "./assets/img/bullet_south.png"));
+          } else if(this.faceTo.west === true){
+            this.bullets.push(new Block(this.ctx, this.x - 16, this.y + this.height / 2 - 6, "./assets/img/bullet_west.png"));
+          }   
+          //this.sounds.fire.currentTime = 0
+         // this.sounds.fire.play()
+          this.canFire = false
+          setTimeout(() => {
+            this.canFire = true
+          }, 500);
+        }
         break;
       default:
         break;
@@ -126,6 +161,10 @@ class Tank {
       }
       this.sprite.drawCount = 0;
     }
+    this.faceTo.north = true;
+    this.faceTo.east = false;
+    this.faceTo.south = false;
+    this.faceTo.west = false;
   }
 
   animateDown() {
@@ -141,6 +180,11 @@ class Tank {
       }
       this.sprite.drawCount = 0;
     }
+
+     this.faceTo.north = false;
+     this.faceTo.east = false;
+     this.faceTo.south =true;
+     this.faceTo.west = false;
   }
 
   animateRight() {
@@ -156,6 +200,11 @@ class Tank {
       }
       this.sprite.drawCount = 0;
     }
+
+    this.faceTo.north = false;
+    this.faceTo.east = true;
+    this.faceTo.south = false;
+    this.faceTo.west = false;
   }
 
   animateLeft() {
@@ -171,6 +220,11 @@ class Tank {
       }
       this.sprite.drawCount = 0;
     }
+
+    this.faceTo.north = false;
+    this.faceTo.east = false;
+    this.faceTo.south = false;
+    this.faceTo.west = true;
   }
 
   collidesWith(element) {
@@ -208,6 +262,5 @@ class Tank {
         this.collidesWith(block);
       });
     }
-
   }
 }
