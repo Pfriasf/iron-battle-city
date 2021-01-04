@@ -11,7 +11,7 @@ class Game {
 
         this.background = new Background(this.ctx)
 
-        this.tank = new Tank(this.ctx, 256, 780)       
+        this.tank = new Tank(this.ctx, 262, 780)       
         this.stage = new Stage(this.ctx)
     }
 

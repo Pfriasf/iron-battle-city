@@ -5,33 +5,33 @@ class Tank {
     this.y = y;
     this.width = 0;
     this.height = 0;
-    
+
     this.sprite = new Image();
     this.sprite.src = "./assets/img/tank.png";
-    
+
     this.sprite.isReady = false;
     this.sprite.horizontalFrames = 4;
     this.sprite.verticalFrames = 2;
     this.sprite.horizontalFrameIndex = 2;
     this.sprite.verticalFrameIndex = 0;
-    this.sprite.drawCount = 0
-    
+    this.sprite.drawCount = 0;
+
     this.sprite.onload = () => {
       this.sprite.isReady = true;
       this.sprite.frameWidth = Math.floor(
         this.sprite.width / this.sprite.horizontalFrames
-        );
-        this.sprite.frameHeight = Math.floor(
-          this.sprite.height / this.sprite.verticalFrames
-          );
-          this.width = this.sprite.frameWidth;
-          this.height = this.sprite.frameHeight;
-        };
-        
-        this.minX = 0;
-        this.maxX = this.ctx.canvas.width - 52;
-        this.minY = 0;
-        this.maxY = this.ctx.canvas.height - 52;
+      );
+      this.sprite.frameHeight = Math.floor(
+        this.sprite.height / this.sprite.verticalFrames
+      );
+      this.width = this.sprite.frameWidth;
+      this.height = this.sprite.frameHeight;
+    };
+
+    this.minX = 0;
+    this.maxX = this.ctx.canvas.width - 52;
+    this.minY = 0;
+    this.maxY = this.ctx.canvas.height - 52;
 
     this.movements = {
       up: false,
@@ -84,22 +84,22 @@ class Tank {
   move() {
     if (this.movements.up) {
       this.y -= SPEED;
-      this.animateUp()
+      this.animateUp();
     } else if (this.movements.down) {
       this.y += SPEED;
-      this.animateDown()
+      this.animateDown();
     } else if (this.movements.right) {
       this.x += SPEED;
-      this.animateRight()
+      this.animateRight();
     } else if (this.movements.left) {
       this.x -= SPEED;
-      this.animateLeft()
+      this.animateLeft();
     }
 
-    if(this.x >= this.maxX){
-      this.x = this.maxX
-    } else if ( this.x <= this.minX){
-      this.x = this.minX
+    if (this.x >= this.maxX) {
+      this.x = this.maxX;
+    } else if (this.x <= this.minX) {
+      this.x = this.minX;
     }
 
     if (this.y >= this.maxY) {
@@ -107,8 +107,6 @@ class Tank {
     } else if (this.y <= this.minY) {
       this.y = this.minY;
     }
-    
-
   }
 
   animateUp() {
@@ -168,6 +166,18 @@ class Tank {
         this.sprite.verticalFrameIndex = 0;
       }
       this.sprite.drawCount = 0;
+    }
+  }
+
+  collidesWith(element) {
+    if (this.x < element.x + element.width) {
+      this.x = element.x + element.width;
+    } else if (this.x + this.width > element.x) {
+      this.x = element.x - element - this.width;
+    } else if (this.y < element.y + element.height) {
+      this.y = element.y + element.height;
+    } else if (this.y + this.height > element.y) {
+      this.y = element.y - this.height;
     }
   }
 }
