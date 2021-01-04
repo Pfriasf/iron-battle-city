@@ -103,8 +103,6 @@ class Tank {
           } else if(this.faceTo.west === true){
             this.bullets.push(new Block(this.ctx, this.x - 16, this.y + this.height / 2 - 6, "./assets/img/bullet_west.png"));
           }   
-          //this.sounds.fire.currentTime = 0
-         // this.sounds.fire.play()
           this.canFire = false
           setTimeout(() => {
             this.canFire = true
