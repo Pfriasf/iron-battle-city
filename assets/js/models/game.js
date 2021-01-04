@@ -30,6 +30,7 @@ class Game {
         this.background.draw()
         this.tank.draw()
         this.stage.draw()
+       
     }
 
     clear() {

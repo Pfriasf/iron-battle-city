@@ -83,15 +83,19 @@ class Tank {
 
   move() {
     if (this.movements.up) {
+      this.checkCollisions()
       this.y -= SPEED;
       this.animateUp();
     } else if (this.movements.down) {
+      this.checkCollisions();
       this.y += SPEED;
       this.animateDown();
     } else if (this.movements.right) {
+      this.checkCollisions();
       this.x += SPEED;
       this.animateRight();
     } else if (this.movements.left) {
+      this.checkCollisions();
       this.x -= SPEED;
       this.animateLeft();
     }
@@ -170,14 +174,40 @@ class Tank {
   }
 
   collidesWith(element) {
-    if (this.x < element.x + element.width) {
-      this.x = element.x + element.width;
-    } else if (this.x + this.width > element.x) {
-      this.x = element.x - element - this.width;
-    } else if (this.y < element.y + element.height) {
-      this.y = element.y + element.height;
-    } else if (this.y + this.height > element.y) {
-      this.y = element.y - this.height;
+    if (this.x < element.x + element.width && this.x + this.width > element.x && this.y < element.y + element.height && this.y + this.height > element.y) {
+
+      const top_diff = element.y + element.height - this.y;
+      const bottom_diff = this.y + this.height - element.y;
+      const left_diff = element.x + element.width - this.x;
+      const right_diff = this.x + this.width - element.x;
+
+      const min = Math.min(bottom_diff, top_diff, left_diff, right_diff);
+
+      const collidesOn = {
+        bottom: bottom_diff == min,
+        right: right_diff == min,
+        left: left_diff == min,
+        top: top_diff == min,
+      }
+
+      if (collidesOn.top === true) {
+        this.y = element.y + element.height
+      } else if (collidesOn.right === true) {
+        this.x = element.x - this.width;
+      } else if (collidesOn.bottom === true) {
+        this.y = element.y - this.height
+      } else if (collidesOn.left === true) {
+        this.x = element.x + element.width;
+      }
     }
+  }
+
+  checkCollisions() {
+    for (const element in levelBlocks) {
+      levelBlocks[element].forEach((block) => {
+        this.collidesWith(block);
+      });
+    }
+
   }
 }
