@@ -40,12 +40,7 @@ class Tank {
       left: false,
     };
 
-     this.faceTo = {
-       north: true,
-       east: false,
-       south: false,
-       west: false,
-     };
+     this.direction = "north"
     
     this.canFire = true;
     this.bullets = [];
@@ -71,12 +66,10 @@ class Tank {
 
       this.bullets.forEach((bullet) => bullet.draw());
     }
-    console.log(this.bullets)
   }
 
   onKeyEvent(event) {
     const status = event.type === "keydown";
-    console.log(event.key)
     switch (event.key) {
       case KEY_UP:
         this.movements.up = status;
@@ -93,15 +86,14 @@ class Tank {
       case KEY_FIRE:
            
         if (this.canFire) {
-          console.log("pum")
-          if(this.faceTo.north){
-            this.bullets.push(new Block(this.ctx, this.x + this.width / 2 - 6, this.y - 16, "./assets/img/bullet_north.png"));
-          } else if(this.faceTo.east === true){
-            this.bullets.push(new Block(this.ctx, this.x + this.width, this.y + this.height / 2 - 6, "./assets/img/bullet_east.png"));
-          } else if(this.faceTo.south === true){
-            this.bullets.push(new Block(this.ctx, this.x + this.width / 2 - 6, this.y + this.height, "./assets/img/bullet_south.png"));
-          } else if(this.faceTo.west === true){
-            this.bullets.push(new Block(this.ctx, this.x - 16, this.y + this.height / 2 - 6, "./assets/img/bullet_west.png"));
+          if(this.direction === "north"){
+            this.bullets.push(new Bullet(this.ctx, this.x + this.width / 2 - 6, this.y - 16, "./assets/img/bullet_north.png", this.direction));
+          } else if(this.direction === "east"){
+            this.bullets.push(new Bullet(this.ctx, this.x + this.width, this.y + this.height / 2 - 6, "./assets/img/bullet_east.png", this.direction));
+          } else if(this.direction === "south"){
+            this.bullets.push(new Bullet(this.ctx, this.x + this.width / 2 - 6, this.y + this.height, "./assets/img/bullet_south.png", this.direction));
+          } else if(this.direction === "west"){
+            this.bullets.push(new Bullet(this.ctx, this.x - 16, this.y + this.height / 2 - 6, "./assets/img/bullet_west.png", this.direction));
           }   
           this.canFire = false
           setTimeout(() => {
@@ -115,6 +107,9 @@ class Tank {
   }
 
   move() {
+
+    this.bullets.forEach((bullet) => bullet.move());
+
     if (this.movements.up) {
       this.checkCollisions()
       this.y -= SPEED;
@@ -159,10 +154,7 @@ class Tank {
       }
       this.sprite.drawCount = 0;
     }
-    this.faceTo.north = true;
-    this.faceTo.east = false;
-    this.faceTo.south = false;
-    this.faceTo.west = false;
+    this.direction = "north"
   }
 
   animateDown() {
@@ -179,10 +171,7 @@ class Tank {
       this.sprite.drawCount = 0;
     }
 
-     this.faceTo.north = false;
-     this.faceTo.east = false;
-     this.faceTo.south =true;
-     this.faceTo.west = false;
+    this.direction = "south";
   }
 
   animateRight() {
@@ -199,10 +188,7 @@ class Tank {
       this.sprite.drawCount = 0;
     }
 
-    this.faceTo.north = false;
-    this.faceTo.east = true;
-    this.faceTo.south = false;
-    this.faceTo.west = false;
+    this.direction = "east";
   }
 
   animateLeft() {
@@ -219,10 +205,7 @@ class Tank {
       this.sprite.drawCount = 0;
     }
 
-    this.faceTo.north = false;
-    this.faceTo.east = false;
-    this.faceTo.south = false;
-    this.faceTo.west = true;
+    this.direction = "west";
   }
 
   collidesWith(element) {

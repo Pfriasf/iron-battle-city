@@ -47,5 +47,5 @@ class Block {
         this.height
       );
     }
-  }
+  } 
 }
