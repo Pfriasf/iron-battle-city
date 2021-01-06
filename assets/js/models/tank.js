@@ -42,7 +42,7 @@ class Tank {
 
      this.direction = "north"
     
-    this.canFire = true;
+    
     this.bullets = [];
   }
 
@@ -65,6 +65,7 @@ class Tank {
       );
 
       this.bullets.forEach((bullet) => bullet.draw());
+      this.checkCollisions();
     }
   }
 
@@ -85,7 +86,7 @@ class Tank {
         break;
       case KEY_FIRE:
            
-        if (this.canFire) {
+        if (this.bullets.length === 0 ){
           if(this.direction === "north"){
             this.bullets.push(new Bullet(this.ctx, this.x + this.width / 2 - 6, this.y - 16, "./assets/img/bullet_north.png", this.direction));
           } else if(this.direction === "east"){
@@ -95,10 +96,7 @@ class Tank {
           } else if(this.direction === "west"){
             this.bullets.push(new Bullet(this.ctx, this.x - 16, this.y + this.height / 2 - 6, "./assets/img/bullet_west.png", this.direction));
           }   
-          this.canFire = false
-          setTimeout(() => {
-            this.canFire = true
-          }, 500);
+          
         }
         break;
       default:
@@ -110,20 +108,16 @@ class Tank {
 
     this.bullets.forEach((bullet) => bullet.move());
 
-    if (this.movements.up) {
-      this.checkCollisions()
+    if (this.movements.up) {      
       this.y -= SPEED;
       this.animateUp();
-    } else if (this.movements.down) {
-      this.checkCollisions();
+    } else if (this.movements.down) {      
       this.y += SPEED;
       this.animateDown();
-    } else if (this.movements.right) {
-      this.checkCollisions();
+    } else if (this.movements.right) {      
       this.x += SPEED;
       this.animateRight();
-    } else if (this.movements.left) {
-      this.checkCollisions();
+    } else if (this.movements.left) {     
       this.x -= SPEED;
       this.animateLeft();
     }
@@ -239,8 +233,19 @@ class Tank {
 
   checkCollisions() {
     for (const element in levelBlocks) {
-      levelBlocks[element].forEach((block) => {
+      levelBlocks[element].forEach((block, index) => {
         this.collidesWith(block);
+        if(this.bullets.length === 1){
+          if(this.bullets[0].collidesWith(block)=== 0){
+            console.log("pum")
+            this.bullets.pop()
+            levelBlocks[element].splice(index,1)
+          } else if (this.bullets[0].collidesWith(block)=== 1){
+            console.log("pum border");
+            this.bullets.pop();
+          }
+
+        }
       });
     }
   }
