@@ -14,6 +14,8 @@ class Game {
 
         this.tank = new Tank(this.ctx, 262, 780)       
         this.stage = new Stage(this.ctx)
+        this.base = new Block(this.ctx, this.canvas.width / 2 - 32, this.canvas.height - 44, "./assets/img/base.png")
+        this.base.sprite.horizontalFrames = 2;
     }
 
     start() {
@@ -31,6 +33,7 @@ class Game {
         this.background.draw()
         this.tank.draw()
         this.stage.draw()
+        this.base.draw()
        
     }
 
