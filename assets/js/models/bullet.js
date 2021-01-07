@@ -44,21 +44,21 @@ class Bullet extends Block {
   }
 
   bulletExplosion() {
-    if(this.x >= 832){
-      this.explosion.x = 832 - this.explosion.width ;
+    if (this.x >= 832) {
+      this.explosion.x = 832 - this.explosion.width;
       this.explosion.y = this.y - this.explosion.height / 2 + this.width / 2;
-    }else if(this.x <= 0){
+    } else if (this.x <= 0) {
       this.explosion.x = 0;
       this.explosion.y = this.y - this.explosion.height / 2 + this.width / 2;
-    }else if(this.y >= 832){
-       this.explosion.x = this.x - this.explosion.width / 2 + this.width / 2; 
-       this.explosion.y = 832 - this.explosion.height;
-    }else if(this.y <= 0){
-       this.explosion.x = this.x - this.explosion.width / 2 + this.width / 2; 
-       this.explosion.y = 0 ;
-    }else {
-      this.explosion.x = this.x - this.explosion.width / 2;
-      this.explosion.y = this.y - this.explosion.height / 2;
+    } else if (this.y >= 832) {
+      this.explosion.x = this.x - this.explosion.width / 2 + this.width / 2;
+      this.explosion.y = 832 - this.explosion.height;
+    } else if (this.y <= 0) {
+      this.explosion.x = this.x - this.explosion.width / 2 + this.width / 2;
+      this.explosion.y = 0;
+    } else {
+      this.explosion.x = this.x - this.explosion.width / 2 + this.width / 2;
+      this.explosion.y = this.y - this.explosion.height / 2 + this.width / 2;
     }
 
     this.explosion.drawInterval = setInterval(() => {
