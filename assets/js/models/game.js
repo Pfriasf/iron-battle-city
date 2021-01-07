@@ -6,6 +6,7 @@ class Game {
         this.canvas.width = 832
         this.canvas.height = 832
 
+
         this.fps = 1000 / 60;
         this.drawInterval = undefined;
 

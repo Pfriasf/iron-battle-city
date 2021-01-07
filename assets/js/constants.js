@@ -7,4 +7,4 @@ const KEY_FIRE = " "
 
 const SPEED = 2
 const BULLET_SPEED = 10;
-const MOVEMENT_FRAMES = 2;
+const MOVEMENT_FRAMES = 5;

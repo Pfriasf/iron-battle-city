@@ -85,6 +85,7 @@ class Tank {
         this.movements.left = status;
         break;
       case KEY_FIRE:
+        console.log(this.bullets)
            
         if (this.bullets.length === 0 ){
           if(this.direction === "north"){
@@ -241,6 +242,7 @@ class Tank {
             this.bullets.pop()
             levelBlocks[element].splice(index,1)
           } else if (this.bullets[0].collidesWith(block)=== 1){
+            console.log(this.bullets[0].y)
             this.bullets[0].bulletExplosion();
             this.bullets.pop();
           }
