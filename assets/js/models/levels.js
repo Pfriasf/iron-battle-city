@@ -15,7 +15,9 @@ levelBlocks = {
     steelBlocks:[],
     waterBlocks:[],
     treeBlocks:[],
-    iceBlocks:[]
+    iceBlocks:[],
+    base:[],
+    enemies:[]
 }
 
 levels = {

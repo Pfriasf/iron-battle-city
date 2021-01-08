@@ -5,36 +5,36 @@ class Game {
 
         this.canvas.width = 832
         this.canvas.height = 832
-
+        
 
         this.fps = 1000 / 60;
         this.drawInterval = undefined;
 
         this.background = new Background(this.ctx)
 
-        this.tank = new Tank(this.ctx, 262, 780)       
+        this.tank = new Tank(this.ctx, 262, 780, "./assets/img/tank.png");
         this.stage = new Stage(this.ctx)
-        this.base = new Block(this.ctx, this.canvas.width / 2 - 32, this.canvas.height - 44, "./assets/img/base.png")
-        this.base.sprite.horizontalFrames = 2;
+
+
     }
 
     start() {
         if (!this.drawInterval) {
             this.drawInterval = setInterval(() => {
-                this.clear()
-                this.move()
-                this.draw()
-            }, this.fps)
+                this.clear();
+                this.move();
+                this.draw();
+            }, this.fps);
         }
     }
 
-
     draw() {
+
         this.background.draw()
         this.tank.draw()
         this.stage.draw()
-        this.base.draw()
-       
+
+
     }
 
     clear() {
@@ -42,10 +42,27 @@ class Game {
     }
 
     move() {
-        this.tank.move();
+        if (levelBlocks.base[0].sprite.horizontalFrameIndex === 0) {
+            this.tank.move();
+        } else {
+            this.gameOver()
+        }
     }
 
     onKeyEvent(event) {
         this.tank.onKeyEvent(event)
+    }
+
+    gameOver() {
+        this.tank.canFire = false
+        this.ctx.save();
+        this.ctx.font = "30px Arial";
+        this.ctx.fillStyle = "white";
+        this.ctx.fillText("Hello World", 0, 0);
+        this.ctx.restore();
+
+        setTimeout(() => {
+            clearInterval(this.drawInterval)
+        }, 5000)
     }
 }

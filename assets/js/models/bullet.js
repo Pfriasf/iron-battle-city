@@ -28,7 +28,6 @@ class Bullet extends Block {
   }
 
   explosionAnimation() {
-    console.log("animando")
     this.explosion.sprite.drawCount++;
     if (this.explosion.sprite.horizontalFrameIndex !== 0) {
       this.explosion.sprite.horizontalFrameIndex = 0;

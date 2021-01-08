@@ -1,5 +1,5 @@
 class Tank {
-  constructor(ctx, x, y) {
+  constructor(ctx, x, y, src) {
     this.ctx = ctx;
     this.x = x;
     this.y = y;
@@ -7,7 +7,7 @@ class Tank {
     this.height = 0;
 
     this.sprite = new Image();
-    this.sprite.src = "./assets/img/tank.png";
+    this.sprite.src = src;
 
     this.sprite.isReady = false;
     this.sprite.horizontalFrames = 4;
@@ -44,6 +44,7 @@ class Tank {
     
     
     this.bullets = [];
+    this.canFire = true
   }
 
   isReady() {
@@ -51,6 +52,7 @@ class Tank {
   }
 
   draw() {
+
     if (this.isReady()) {
       this.ctx.drawImage(
         this.sprite,
@@ -64,7 +66,11 @@ class Tank {
         this.height
       );
 
-      this.bullets.forEach((bullet) => bullet.draw());
+      this.bullets.forEach((bullet) => {
+        bullet.draw()
+        bullet.move()
+      });
+      
       this.checkCollisions();
     }
   }
@@ -84,10 +90,8 @@ class Tank {
       case KEY_LEFT:
         this.movements.left = status;
         break;
-      case KEY_FIRE:
-        console.log(this.bullets)
-           
-        if (this.bullets.length === 0 ){
+      case KEY_FIRE:           
+        if (this.bullets.length === 0 && this.canFire){
           if(this.direction === "north"){
             this.bullets.push(new Bullet(this.ctx, this.x + this.width / 2 - 6, this.y - 16, "./assets/img/bullet_north.png", this.direction));
           } else if(this.direction === "east"){
@@ -107,7 +111,7 @@ class Tank {
 
   move() {
 
-    this.bullets.forEach((bullet) => bullet.move());
+    
 
     if (this.movements.up) {      
       this.y -= SPEED;
@@ -238,9 +242,13 @@ class Tank {
         this.collidesWith(block);
         if(this.bullets.length === 1){
           if(this.bullets[0].collidesWith(block)=== 0){
-            this.bullets[0].bulletExplosion()
-            this.bullets.pop()
-            levelBlocks[element].splice(index,1)
+           if(element === "base"){
+            block.sprite.horizontalFrameIndex = 1
+           }else{
+             this.bullets[0].bulletExplosion()
+             this.bullets.pop()
+             levelBlocks[element].splice(index,1)
+           }
           } else if (this.bullets[0].collidesWith(block)=== 1){
             console.log(this.bullets[0].y)
             this.bullets[0].bulletExplosion();
