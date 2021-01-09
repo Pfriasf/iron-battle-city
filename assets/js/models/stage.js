@@ -90,6 +90,10 @@ class Stage {
 
   createEnemies(){    
     this.enemies.push(new EnemyTank(this.ctx, 10, 10, "./assets/img/tank.png"));
+    this.enemies.push(new EnemyTank(this.ctx, 10, 200, "./assets/img/tank.png"));
+    this.enemies.push(new EnemyTank(this.ctx, 10, 400, "./assets/img/tank.png"));
+    this.enemies.push(new EnemyTank(this.ctx, 800, 200, "./assets/img/tank.png"));
+    this.enemies.push(new EnemyTank(this.ctx, 800, 400, "./assets/img/tank.png"));
   }
 
 }
