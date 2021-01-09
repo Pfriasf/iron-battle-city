@@ -32,6 +32,10 @@ class Game {
     }
     
     draw() {
+        if (enemies.length === 0) {
+          console.log("ganaste");
+          this.gameOver();
+        }
         this.background.draw()
         this.players.forEach(player => player.draw())
         this.stage.draw()
@@ -69,6 +73,6 @@ class Game {
         this.tank.canFire = false
         setTimeout(() => {
             clearInterval(this.drawInterval)
-        }, 5000)
+        }, 1000)
     }
 }
