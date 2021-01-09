@@ -5,6 +5,7 @@ class Tank {
     this.y = y;
     this.width = 0;
     this.height = 0;
+    this.id = "player"
 
     this.sprite = new Image();
     this.sprite.src = src;
@@ -44,15 +45,22 @@ class Tank {
 
 
     this.bullets = [];
-    this.canFire = true
-    this.collidesWithABlock = false
+    this.canFire = true;
+    this.collidesWithABlock = false;
+
+    this.sounds = {
+      fire: new Audio("./assets/sound/bullet_fire.wav"),
+      destroy: new Audio("./assets/sound/destroy.wav"),
+      tank: new Audio("./assets/sound/tank_idle.wav"),
+      tankMovement: new Audio("./assets/sound/tank_move.wav"),
+    };
   }
 
   isReady() {
     return this.sprite.isReady;
   }
 
-  draw() {
+  draw() {         
     if (this.isReady()) {
       this.ctx.drawImage(
         this.sprite,
@@ -71,6 +79,7 @@ class Tank {
         bullet.move()
       });
 
+     
       this.checkCollisions();
     }
   }
@@ -79,10 +88,12 @@ class Tank {
     const status = event.type === "keydown";
     switch (event.key) {
       case KEY_UP:
-        this.movements.up = status;
-        break;
+        this.movements.up = status;        
+         break;
       case KEY_RIGHT:
         this.movements.right = status;
+        this.sounds.tankMovement.pause();
+
         break;
       case KEY_DOWN:
         this.movements.down = status;
@@ -109,19 +120,18 @@ class Tank {
     }
   }
 
-  move() {
-
+  move() {   
     if (this.movements.up) {
       this.y -= SPEED;
       this.animateUp();
-    } else if (this.movements.down) {
-      this.y += SPEED;
+    } else if (this.movements.down) {     
+        this.y += SPEED;
       this.animateDown();
     } else if (this.movements.right) {
       this.x += SPEED;
       this.animateRight();
     } else if (this.movements.left) {
-      this.x -= SPEED;
+       this.x -= SPEED;
       this.animateLeft();
     }
 
@@ -239,6 +249,11 @@ class Tank {
   }
 
   checkCollisions() {
+    enemies.forEach((enemy) => {
+      if(this.id === "player"){
+        this.collidesWith(enemy)
+      }
+       })
     for (const element in levelBlocks) {
       levelBlocks[element].forEach((block, index) => {
         this.collidesWith(block);
@@ -253,6 +268,7 @@ class Tank {
         }
         if (this.bullets.length === 1) {
           players.forEach((player, index) => {
+            
             if (this.bullets[0].collidesWith(player) === 0) {
               this.bullets[0].bulletExplosion();
               this.bullets.pop();
@@ -277,4 +293,6 @@ class Tank {
       });
     }
   }
+
+  
 }

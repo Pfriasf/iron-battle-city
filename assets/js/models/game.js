@@ -16,6 +16,8 @@ class Game {
       players = this.players
       this.stage = new Stage(this.ctx);
       this.enemiesDrawCount = 0;
+
+      
      
     }
 

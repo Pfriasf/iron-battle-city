@@ -2,8 +2,10 @@ class EnemyTank extends Tank {
   constructor(ctx, x, y, src) {
     super(ctx, x, y, src);
     this.action = "ArrowRight";
-
+    this.id = "enemy";
   }
+
+ 
 
   iaFire() {
     this.action = " ";
@@ -22,9 +24,14 @@ class EnemyTank extends Tank {
   }
 
   iaActions() {
-    if (this.x === 832 - this.width || this.x === 0 || this.y === 0 || this.y === 832 - this.height) {
+    if (
+      this.x === 832 - this.width ||
+      this.x === 0 ||
+      this.y === 0 ||
+      this.y === 832 - this.height
+    ) {
       this.randomDirection(Math.floor(Math.random() * 4));
-      this.iaFire()
+      this.iaFire();
     } else if (this.collidesWithABlock) {
       this.collidesWithABlock = false;
       let number = Math.floor(Math.random() * 2);
