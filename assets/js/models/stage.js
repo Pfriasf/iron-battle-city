@@ -14,7 +14,7 @@ class Stage {
     this.base.sprite.horizontalFrames = 2;
     levelBlocks.base.push(this.base)
     
-    levels.stage_35.forEach((row, rowIndex) => {
+    levels.stage_14.forEach((row, rowIndex) => {
       row.forEach((element, elementIndex) => {
         switch (element) {
           case 0:
