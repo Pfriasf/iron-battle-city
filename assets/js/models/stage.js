@@ -1,11 +1,14 @@
 class Stage {
   constructor(ctx) {
     this.ctx = ctx;
-
-        this.base = new Block(this.ctx, 832 / 2 - 32, 832 - 44, "./assets/img/base.png")
-        this.base.sprite.horizontalFrames = 2;
-        levelBlocks.base.push(this.base)
-
+    
+    this.enemies = [];
+    this.enemies.push(new EnemyTank(this.ctx, 10, 10, "./assets/img/tank.png"));
+    
+    this.base = new Block(this.ctx, 832 / 2 - 32, 832 - 44, "./assets/img/base.png")
+    this.base.sprite.horizontalFrames = 2;
+    levelBlocks.base.push(this.base)
+    
     levels.stage_14.forEach((row, rowIndex) => {
       row.forEach((element, elementIndex) => {
         switch (element) {
@@ -65,6 +68,10 @@ class Stage {
         }
       });
     });
+
+  
+    
+
   }
 
   draw() {

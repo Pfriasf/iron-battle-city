@@ -45,6 +45,7 @@ class Tank {
     
     this.bullets = [];
     this.canFire = true
+    this.collidesWithABlock = false
   }
 
   isReady() {
@@ -52,7 +53,6 @@ class Tank {
   }
 
   draw() {
-
     if (this.isReady()) {
       this.ctx.drawImage(
         this.sprite,
@@ -109,9 +109,7 @@ class Tank {
     }
   }
 
-  move() {
-
-    
+  move() {   
 
     if (this.movements.up) {      
       this.y -= SPEED;
@@ -226,12 +224,16 @@ class Tank {
 
       if (collidesOn.top === true) {
         this.y = element.y + element.height
+        this.collidesWithABlock = true
       } else if (collidesOn.right === true) {
         this.x = element.x - this.width;
+        this.collidesWithABlock = true;
       } else if (collidesOn.bottom === true) {
         this.y = element.y - this.height
+        this.collidesWithABlock = true;
       } else if (collidesOn.left === true) {
         this.x = element.x + element.width;
+        this.collidesWithABlock = true;
       }
     }
   }
@@ -250,7 +252,6 @@ class Tank {
              levelBlocks[element].splice(index,1)
            }
           } else if (this.bullets[0].collidesWith(block)=== 1){
-            console.log(this.bullets[0].y)
             this.bullets[0].bulletExplosion();
             this.bullets.pop();
           }
