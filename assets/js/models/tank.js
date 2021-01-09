@@ -40,9 +40,9 @@ class Tank {
       left: false,
     };
 
-     this.direction = "north"
-    
-    
+    this.direction = "north"
+
+
     this.bullets = [];
     this.canFire = true
     this.collidesWithABlock = false
@@ -70,7 +70,7 @@ class Tank {
         bullet.draw()
         bullet.move()
       });
-      
+
       this.checkCollisions();
     }
   }
@@ -90,18 +90,18 @@ class Tank {
       case KEY_LEFT:
         this.movements.left = status;
         break;
-      case KEY_FIRE:           
-        if (this.bullets.length === 0 && this.canFire){
-          if(this.direction === "north"){
+      case KEY_FIRE:
+        if (this.bullets.length === 0 && this.canFire) {
+          if (this.direction === "north") {
             this.bullets.push(new Bullet(this.ctx, this.x + this.width / 2 - 6, this.y - 16, "./assets/img/bullet_north.png", this.direction));
-          } else if(this.direction === "east"){
+          } else if (this.direction === "east") {
             this.bullets.push(new Bullet(this.ctx, this.x + this.width, this.y + this.height / 2 - 6, "./assets/img/bullet_east.png", this.direction));
-          } else if(this.direction === "south"){
+          } else if (this.direction === "south") {
             this.bullets.push(new Bullet(this.ctx, this.x + this.width / 2 - 6, this.y + this.height, "./assets/img/bullet_south.png", this.direction));
-          } else if(this.direction === "west"){
+          } else if (this.direction === "west") {
             this.bullets.push(new Bullet(this.ctx, this.x - 16, this.y + this.height / 2 - 6, "./assets/img/bullet_west.png", this.direction));
-          }   
-          
+          }
+
         }
         break;
       default:
@@ -109,18 +109,18 @@ class Tank {
     }
   }
 
-  move() {   
+  move() {
 
-    if (this.movements.up) {      
+    if (this.movements.up) {
       this.y -= SPEED;
       this.animateUp();
-    } else if (this.movements.down) {      
+    } else if (this.movements.down) {
       this.y += SPEED;
       this.animateDown();
-    } else if (this.movements.right) {      
+    } else if (this.movements.right) {
       this.x += SPEED;
       this.animateRight();
-    } else if (this.movements.left) {     
+    } else if (this.movements.left) {
       this.x -= SPEED;
       this.animateLeft();
     }
@@ -242,21 +242,38 @@ class Tank {
     for (const element in levelBlocks) {
       levelBlocks[element].forEach((block, index) => {
         this.collidesWith(block);
-        if(this.bullets.length === 1){
-          if(this.bullets[0].collidesWith(block)=== 0){
-           if(element === "base"){
-            block.sprite.horizontalFrameIndex = 1
-           }else{
-             this.bullets[0].bulletExplosion()
-             this.bullets.pop()
-             levelBlocks[element].splice(index,1)
-           }
-          } else if (this.bullets[0].collidesWith(block)=== 1){
-            this.bullets[0].bulletExplosion();
-            this.bullets.pop();
-          }
-
+        if (this.bullets.length === 1) {
+          enemies.forEach((enemy, index) => {
+            if (this.bullets[0].collidesWith(enemy) === 0) {
+              this.bullets[0].bulletExplosion();
+              this.bullets.pop();
+              enemies.splice(index, 1)
+            }
+          });
         }
+        if (this.bullets.length === 1) {
+          players.forEach((player, index) => {
+            if (this.bullets[0].collidesWith(player) === 0) {
+              this.bullets[0].bulletExplosion();
+              this.bullets.pop();
+              players.splice(index, 1);
+            }
+          });
+        }
+         if (this.bullets.length === 1) {
+           if (this.bullets[0].collidesWith(block) === 0) {
+             if (element === "base") {
+               block.sprite.horizontalFrameIndex = 1;
+             } else {
+               this.bullets[0].bulletExplosion();
+               this.bullets.pop();
+               levelBlocks[element].splice(index, 1);
+             }
+           } else if (this.bullets[0].collidesWith(block) === 1) {
+             this.bullets[0].bulletExplosion();
+             this.bullets.pop();
+           }
+         }
       });
     }
   }

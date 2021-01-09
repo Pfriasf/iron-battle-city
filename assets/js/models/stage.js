@@ -3,7 +3,12 @@ class Stage {
     this.ctx = ctx;
     
     this.enemies = [];
-    this.enemies.push(new EnemyTank(this.ctx, 10, 10, "./assets/img/tank.png"));
+    enemies = this.enemies;
+    this.enemiesCount = 0;
+    if(this.enemiesCount < 20){
+        this.createEnemies()
+        this.enemiesCount++
+    }
     
     this.base = new Block(this.ctx, 832 / 2 - 32, 832 - 44, "./assets/img/base.png")
     this.base.sprite.horizontalFrames = 2;
@@ -75,10 +80,16 @@ class Stage {
   }
 
   draw() {
+    
     for (const element in levelBlocks) {
       levelBlocks[element].forEach((block) => {
         block.draw();
       });
     }
   }
+
+  createEnemies(){    
+    this.enemies.push(new EnemyTank(this.ctx, 10, 10, "./assets/img/tank.png"));
+  }
+
 }

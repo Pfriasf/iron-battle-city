@@ -26,14 +26,11 @@ class EnemyTank extends Tank {
       this.randomDirection(Math.floor(Math.random() * 4));
       this.iaFire()
     } else if (this.collidesWithABlock) {
-      console.log("choca bloque")
       this.collidesWithABlock = false;
       let number = Math.floor(Math.random() * 2);
       if (number == 1) {
-        console.log("decide girar")
         this.randomDirection(Math.floor(Math.random() * 4));
       } else {
-        console.log("decide disparar")
         this.iaFire();
       }
     }

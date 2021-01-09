@@ -10,9 +10,12 @@ class Game {
       this.drawInterval = undefined;
 
       this.background = new Background(this.ctx);
-
+      this.players =[]
       this.tank = new Tank(this.ctx, 262, 780, "./assets/img/tank.png");
+      this.players.push(this.tank)
+      players = this.players
       this.stage = new Stage(this.ctx);
+      this.enemiesDrawCount = 0;
      
     }
 
@@ -30,10 +33,14 @@ class Game {
     
     draw() {
         this.background.draw()
-        this.tank.draw()
+        this.players.forEach(player => player.draw())
         this.stage.draw()
         this.stage.enemies.forEach((enemy) => {
-            enemy.draw()
+            if(this.enemiesDrawCount <= 5){
+               
+                enemy.draw();
+                
+            }
             enemy.iaActions()})        
     }
 
@@ -42,7 +49,7 @@ class Game {
     }
 
     move() {
-        if (levelBlocks.base[0].sprite.horizontalFrameIndex === 0) {
+        if (levelBlocks.base[0].sprite.horizontalFrameIndex === 0 && players.length === 1) {
             this.tank.move();
             this.stage.enemies.forEach((enemy) => {
                 enemy.move()

@@ -10,7 +10,9 @@ Reference:
 4: ice
 5: ground
 */
-levelBlocks = {
+let enemies;
+let players;
+let levelBlocks = {
     brickBlocks:[],
     steelBlocks:[],
     waterBlocks:[],
